@@ -19,11 +19,13 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-table"
-                                                         style="margin-right: 8px"></i>任务列表</a></li>
-                <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-console"
-                                                         style="margin-right: 8px"></i>日志监控</a></li>
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" id="menus">
+                <li class="layui-nav-item"><a href="javascript:;" data-url="task.html"><i
+                        class="layui-icon layui-icon-table"
+                        style="margin-right: 8px"></i>任务列表</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-url="log.html"><i
+                        class="layui-icon layui-icon-console"
+                        style="margin-right: 8px"></i>日志监控</a></li>
             </ul>
         </div>
     </div>
@@ -43,9 +45,12 @@
 <script src="../layui/layui.js"></script>
 <script>
     //JavaScript代码区域
-    layui.use('element', function () {
-        var element = layui.element;
+    layui.use(['element', 'jquery'], function () {
+        var element = layui.element, $ = layui.$;
 
+        $(document).on('click', '#menus li a', function () {
+            $("#demoAdmin").attr("src", $(this).attr("data-url"));
+        });
     });
 </script>
 </body>

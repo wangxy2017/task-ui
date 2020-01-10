@@ -7,24 +7,16 @@
     <link rel="stylesheet" href="../layui/css/layui.css">
 </head>
 <body>
-<div class="layui-btn-group">
-    <a type="button" class="layui-btn" href="add.html">添加任务</a>
-</div>
 <form class="layui-form" action="">
     <div class="layui-form-item">
-        <label class="layui-form-label">任务名称：</label>
+        <label class="layui-form-label">任务ID：</label>
         <div class="layui-input-inline">
-            <input type="text" name="task_name" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="task_id" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
         <button class="layui-btn" lay-submit lay-filter="search">查询</button>
     </div>
 </form>
 <table id="demo" lay-filter="test"></table>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="start">启动</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stop">暂停</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
 <script src="../layui/layui.js"></script>
 <script>
     layui.use(['table', 'layer', 'jquery', 'form'], function () {
@@ -39,18 +31,14 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , url: 'http://192.168.1.104:7890/hvag/joblist' //数据接口
+            , url: 'http://192.168.1.104:7890/hvag/logs' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'task_id', title: '任务ID', width: 80, sort: true}
-                , {field: 'task_name', title: '任务名称', edit: 'text'}
-                , {field: 'description', title: '任务描述', edit: 'text'}
-                , {field: 'cron_spec', title: '任务周期', edit: 'text'}
-                , {field: 'running', title: '是否运行'}
-                , {field: 'status', title: '任务状态'}
-                , {field: 'prev_time', title: '上一次运行时间'}
-                , {field: 'next_time', title: '下一次运行时间'}
-                , {title: '操作', width: 200, fixed: 'right', toolbar: '#barDemo'}
+                , {field: 'task_id', title: '任务ID'}
+                , {field: 'output', title: '输出结果'}
+                , {field: 'start_time', title: '开始时间'}
+                , {field: 'status', title: '状态'}
+                , {field: 'process_time', title: '处理时间'}
             ]]
             // 参数匹配
             , parseData: function (res) { //res 即为原始返回的数据
@@ -72,25 +60,6 @@
                 , countName: 'total' //规定数据总数的字段名称，默认：count
                 , dataName: 'data' //规定数据列表的字段名称，默认：data
             }
-        });
-        table.on('edit(test)', function (obj) { //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
-            layer.confirm('确认保存数据吗？', function (index) {
-                $.ajax({
-                    type: "POST",
-                    url: "http://192.168.1.104:7890/hvag/editjob",
-                    data: obj.data,
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.code) {
-                            layer.msg('保存成功', {icon: 6});
-                            table.reload("demo");
-                        }
-                    },
-                    error: function () {
-                    }
-                });
-                layer.close(index);
-            });
         });
         //监听行工具事件
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
