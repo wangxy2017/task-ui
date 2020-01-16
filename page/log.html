@@ -11,7 +11,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">任务ID：</label>
         <div class="layui-input-inline">
-            <input type="text" name="task_id" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="task_id" placeholder="输入任务ID查询日志" autocomplete="off" class="layui-input">
         </div>
         <button class="layui-btn" lay-submit lay-filter="search">查询</button>
     </div>
@@ -37,7 +37,23 @@
                 , {field: 'task_id', title: '任务ID'}
                 , {field: 'output', title: '输出结果'}
                 , {field: 'start_time', title: '开始时间'}
-                , {field: 'status', title: '状态'}
+                , {
+                    field: 'status', title: '状态', align: "center", templet: function (d) {
+                        var text = "";
+                        switch (d.status) {
+                            case 0:
+                                text = "<span style='color: #5FB878'>执行成功</span>";
+                                break;
+                            case -1:
+                                text = "<span style='color: #FF5722'>执行失败</span>";
+                                break;
+                            case -2:
+                                text = "<span style='color: #FFB800'>执行超时</span>";
+                                break;
+                        }
+                        return text;
+                    }
+                }
                 , {field: 'process_time', title: '处理时间'}
             ]]
             // 参数匹配
@@ -59,66 +75,6 @@
                 , msgName: 'msg' //规定状态信息的字段名称，默认：msg
                 , countName: 'total' //规定数据总数的字段名称，默认：count
                 , dataName: 'data' //规定数据列表的字段名称，默认：data
-            }
-        });
-        //监听行工具事件
-        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-            var data = obj.data //获得当前行数据
-                , layEvent = obj.event; //获得 lay-event 对应的值
-            if (layEvent === 'del') {
-                layer.confirm('确认删除任务吗？', function (index) {
-                    $.ajax({
-                        type: "POST",
-                        url: "http://192.168.1.104:7890/hvag/deljob",
-                        data: {"id": data.task_id},
-                        dataType: "json",
-                        success: function (result) {
-                            if (result.code) {
-                                layer.msg('删除成功', {icon: 6});
-                                table.reload("demo");
-                            }
-                        },
-                        error: function () {
-                        }
-                    });
-                    layer.close(index);
-                });
-            } else if (layEvent === 'start') {
-                layer.confirm('确认启动任务吗？', function (index) {
-                    $.ajax({
-                        type: "POST",
-                        url: "http://192.168.1.104:7890/hvag/startjob",
-                        data: {"id": data.task_id},
-                        dataType: "json",
-                        success: function (result) {
-                            if (result.code) {
-                                layer.msg('启动成功', {icon: 6});
-                                table.reload("demo");
-                            }
-                        },
-                        error: function () {
-                        }
-                    });
-                    layer.close(index);
-                });
-            } else if (layEvent === 'stop') {
-                layer.confirm('确认暂停任务吗？', function (index) {
-                    $.ajax({
-                        type: "POST",
-                        url: "http://192.168.1.104:7890/hvag/pausejob",
-                        data: {"id": data.task_id},
-                        dataType: "json",
-                        success: function (result) {
-                            if (result.code) {
-                                layer.msg('暂停成功', {icon: 6});
-                                table.reload("demo");
-                            }
-                        },
-                        error: function () {
-                        }
-                    });
-                    layer.close(index);
-                });
             }
         });
     });

@@ -46,10 +46,54 @@
                 , {field: 'task_name', title: '任务名称', edit: 'text'}
                 , {field: 'description', title: '任务描述', edit: 'text'}
                 , {field: 'cron_spec', title: '任务周期', edit: 'text'}
-                , {field: 'running', title: '是否运行'}
-                , {field: 'status', title: '任务状态'}
+                , {
+                    field: 'running', title: '是否运行', align: "center", templet: function (d) {
+                        var text = "";
+                        switch (d.status) {
+                            case 0:
+                                text = "<span style='color: #FF5722'>未运行</span>";
+                                break;
+                            case 1:
+                                text = "<span style='color: #5FB878'>正在运行</span>";
+                                break;
+                        }
+                        return text;
+                    }
+                }
+                , {
+                    field: 'status', title: '任务状态', align: "center", templet: function (d) {
+                        var text = "";
+                        switch (d.status) {
+                            case 0:
+                                text = "<span style='color: #5FB878'>停止</span>";
+                                break;
+                            case 1:
+                                text = "<span style='color: #FF5722'>启动</span>";
+                                break;
+                        }
+                        return text;
+                    }
+                }
                 , {field: 'prev_time', title: '上一次运行时间'}
                 , {field: 'next_time', title: '下一次运行时间'}
+                , {
+                    field: 'task_type', title: '任务类型', align: "center", templet: function (d) {
+                        var text = "";
+                        switch (d.status) {
+                            case 0:
+                                text = "shell";
+                                break;
+                            case 1:
+                                text = "api";
+                                break;
+                            case 2:
+                                text = "python";
+                                break;
+                        }
+                        return text;
+                    }
+                }
+                , {field: 'command', title: '执行命令', edit: 'text'}
                 , {title: '操作', width: 200, fixed: 'right', toolbar: '#barDemo'}
             ]]
             // 参数匹配
