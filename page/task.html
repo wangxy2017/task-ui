@@ -24,6 +24,7 @@
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="start">启动</a>
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="stop">暂停</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="viewLogs">查看日志</a>
 </script>
 <script src="../layui/layui.js"></script>
 <script>
@@ -94,7 +95,7 @@
                     }
                 }
                 , {field: 'command', title: '执行命令', edit: 'text'}
-                , {title: '操作', width: 200, fixed: 'right', toolbar: '#barDemo'}
+                , {title: '操作', width: 300, fixed: 'right', toolbar: '#barDemo'}
             ]]
             // 参数匹配
             , parseData: function (res) { //res 即为原始返回的数据
@@ -194,6 +195,8 @@
                     });
                     layer.close(index);
                 });
+            } else if (layEvent === 'viewLogs') {
+                window.location.href = "log.html?task_id=" + data.task_id;
             }
         });
     });
