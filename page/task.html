@@ -51,7 +51,7 @@
                 , {
                     field: 'running', title: '是否运行', align: "center", templet: function (d) {
                         var text = "";
-                        switch (d.status) {
+                        switch (d.running) {
                             case 0:
                                 text = "<span style='color: #FF5722'>未运行</span>";
                                 break;
@@ -81,7 +81,7 @@
                 , {
                     field: 'task_type', title: '任务类型', align: "center", templet: function (d) {
                         var text = "";
-                        switch (d.status) {
+                        switch (d.task_type) {
                             case 0:
                                 text = "shell";
                                 break;
