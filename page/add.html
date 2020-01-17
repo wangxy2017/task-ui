@@ -61,6 +61,7 @@
     </div>
     <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
 </form>
+<script src="../js/config.js"></script>
 <script src="../layui/layui.js"></script>
 <script>
     layui.use(['form', 'jquery',], function () {
@@ -68,7 +69,7 @@
         form.on('submit(*)', function (data) {
             $.ajax({
                 type: "POST",
-                url: "http://192.168.1.104:7890/hvag/addjob",
+                url: HOST+"/addjob",
                 data: data.field,
                 dataType: "json",
                 success: function (result) {

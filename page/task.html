@@ -26,6 +26,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="viewLogs">查看日志</a>
 </script>
+<script src="../js/config.js"></script>
 <script src="../layui/layui.js"></script>
 <script>
     layui.use(['table', 'layer', 'jquery', 'form'], function () {
@@ -40,7 +41,7 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , url: 'http://192.168.1.104:7890/hvag/joblist' //数据接口
+            , url: HOST + '/joblist' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'task_id', title: '任务ID', width: 80, sort: true}
@@ -122,7 +123,7 @@
             layer.confirm('确认保存数据吗？', function (index) {
                 $.ajax({
                     type: "POST",
-                    url: "http://192.168.1.104:7890/hvag/editjob",
+                    url: HOST + "/editjob",
                     data: obj.data,
                     dataType: "json",
                     success: function (result) {
@@ -145,7 +146,7 @@
                 layer.confirm('确认删除任务吗？', function (index) {
                     $.ajax({
                         type: "POST",
-                        url: "http://192.168.1.104:7890/hvag/deljob",
+                        url: HOST + "/deljob",
                         data: {"id": data.task_id},
                         dataType: "json",
                         success: function (result) {
@@ -163,7 +164,7 @@
                 layer.confirm('确认启动任务吗？', function (index) {
                     $.ajax({
                         type: "POST",
-                        url: "http://192.168.1.104:7890/hvag/startjob",
+                        url: HOST + "/startjob",
                         data: {"id": data.task_id},
                         dataType: "json",
                         success: function (result) {
@@ -181,7 +182,7 @@
                 layer.confirm('确认暂停任务吗？', function (index) {
                     $.ajax({
                         type: "POST",
-                        url: "http://192.168.1.104:7890/hvag/pausejob",
+                        url: HOST + "/pausejob",
                         data: {"id": data.task_id},
                         dataType: "json",
                         success: function (result) {

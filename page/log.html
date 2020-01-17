@@ -17,6 +17,8 @@
     </div>
 </form>
 <table id="demo" lay-filter="test"></table>
+
+<script src="../js/config.js"></script>
 <script src="../layui/layui.js"></script>
 <script>
     layui.use(['table', 'layer', 'jquery', 'form'], function () {
@@ -31,7 +33,7 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , url: 'http://192.168.1.104:7890/hvag/logs' //数据接口
+            , url: HOST+'/logs' //数据接口
             , page: true //开启分页
             , where: {
                 "task_id": function () {
