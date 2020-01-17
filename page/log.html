@@ -49,6 +49,7 @@
             , cols: [[ //表头
                 {field: 'task_id', title: '任务ID'}
                 , {field: 'output', title: '输出结果'}
+                , {field: 'error', title: '错误记录'}
                 , {field: 'start_time', title: '开始时间'}
                 , {
                     field: 'status', title: '状态', align: "center", templet: function (d) {
@@ -86,7 +87,7 @@
                 statusName: 'code' //规定数据状态的字段名称，默认：code
                 , statusCode: true //规定成功的状态码，默认：0
                 , msgName: 'msg' //规定状态信息的字段名称，默认：msg
-                , countName: 'total' //规定数据总数的字段名称，默认：count
+                , countName: 'count' //规定数据总数的字段名称，默认：count
                 , dataName: 'data' //规定数据列表的字段名称，默认：data
             }
         });
